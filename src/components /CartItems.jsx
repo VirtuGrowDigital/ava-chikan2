@@ -6,7 +6,7 @@ import {TbTrash} from 'react-icons/tb'
  
 
 const CartItems = () => {
-    const {all_products,cartItems,removeFromCart}=useContext(ShopContext)
+    const {getTotalCartAmount,all_products,cartItems,removeFromCart}=useContext(ShopContext)
   return (
    <section className='max_padd_container pt-40'>
     <table className='w-full mx-auto'>
@@ -53,29 +53,31 @@ const CartItems = () => {
                         <h4 className='medium-16'>
                             Subtotal:
                         </h4>
-                        <h4 className='text-gray-30 font-semibold'>${0}</h4>
+                        <h4 className='text-gray-30 font-semibold'>${getTotalCartAmount()}</h4>
                     </div>
                     <hr />
-                    <div className='flexBetween'>
-                        <h4>
+                    <div className='flexBetween py-4'>
+                        <h4 className='medium-16'>
                             Shipping Fee:
                         </h4>
-                        <h4>Free</h4>
+                        <h4 className='text-gray-30 font-semibold'>Free</h4>
                     </div>
                     <hr />
-                    <div>
-                        <h4>Total:</h4>
-                        <h4>${0}</h4>
+                    <div className='flexBetween py-4'>
+                        <h4 className='bold-18'>Total:</h4>
+                        <h4 className='bold-18'>${getTotalCartAmount()}</h4>
                     </div>
                 </div>
-            <button>CheckOut</button>
-            <div>
-                <h4>
+            <button className=' btn_dark_rounded w-44'>CheckOut</button>
+            <div className='flex flex-col gap-10'>
+                <h4 className='bold-20 capitalize'>
                     Your Coupon Code Enter Here:
                 </h4>
-                <div>
-                    <input type="text" placeholder='Coupon Code' />
-                    <button>Apply</button>
+                <div className='flexBetween pl-5 h-12 bg-primary rounded-full
+                ring-1 ring-slate-900/10'>
+                    <input type="text" placeholder='Coupon Code' className='bg-transparent 
+                    border-none outline-none' />
+                    <button className='btn_dark_rounded'>Apply</button>
                 </div>
             </div>
         </div>

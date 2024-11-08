@@ -3,13 +3,15 @@ import logo from "../assets/logo.png"
 import logout from "../assets/logout.svg"
 import user from "../assets/user.svg"
 import Navbar from "./Navbar"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { MdClose, MdMenu } from "react-icons/md"
 import { FaOpencart} from "react-icons/fa"
+import { ShopContext } from "../Context/ShopContext"
 
 const Header = () => {
     const [menuOpened,setMenuOpened]=useState(false);
-    const toggleMenu=()=>setMenuOpened(!menuOpened)
+    const toggleMenu=()=>setMenuOpened(!menuOpened);
+    const {getTotalCartItems}=useContext(ShopContext);
 
   return (
    <header className="fixed top-0 left-0 m-auto max_padd_container w-full bg-white ring-1 ring-slate-900/5
@@ -43,10 +45,14 @@ const Header = () => {
                   className="p-1 h-8 w-8 ring-slate-900/30 ring-1  border-solid border-1 border-slate-400
                   rounded-full 
                   "/><span className="relative flexCenter w-5 h-5 rounded-full
-                  bg-secondary text-white medium-14 -top-2"> 0 </span></NavLink>
-                  {/* <NavLink to={'logout'} className={"btn_secondary_rounded flexCenter gap-x-2 medium-16"}> <img src={logout} alt="logouticon"height={19} width={19} /> Logout</NavLink> */}
+                  bg-secondary text-white medium-14 -top-2"> {getTotalCartItems()} </span></NavLink>
+
+                  
+                  {localStorage.getItem('auth-token')?<NavLink onClick={()=>{
+                    localStorage.removeItem('auth-token'); window.location.replace("/")
+                  }} to={'logout'} className={"btn_secondary_rounded flexCenter gap-x-2 medium-16"}> <img src={logout} alt="logouticon"height={19} width={19} /> Logout</NavLink>:
                   <NavLink to={'login'} className={"btn_secondary_rounded flexCenter gap-x-2 medium-16"}> <img src={user} alt="usericon" height={19}
-                  width={19} /> Login</NavLink>
+                  width={19} /> Login</NavLink>}
                 </div>
           </div>
     </div>
